@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Matched Seekers</h2>
+
+
+{% if seekers %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>MBTI</th>
+            <th>Match Score</th>
+            <th>MBTI Match</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for seeker in seekers %}
+        <tr>
+            <td>{{ seeker.username }}</td>
+            <td>{{ seeker.email }}</td>
+            <td>{{ seeker.mbti }}</td>
+            <td>{{ seeker.percentage_score }}%</td>
+            <td>
+                {% if seeker.mbti_match %}
+                <span class="text-success">Yes</span>
+                {% else %}
+                <span class="text-danger">No</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No seekers found.</p>
+{% endif %}
+{% endblock %}

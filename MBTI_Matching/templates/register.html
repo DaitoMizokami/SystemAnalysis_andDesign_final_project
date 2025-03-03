@@ -1,0 +1,202 @@
+﻿{% extends "base.html" %}
+
+{% block content %}
+<h2>Register</h2>
+<form method="POST">
+    <!-- Username -->
+    <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" class="form-control" id="username" name="username" required>
+    </div>
+
+    <!-- Email -->
+    <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" name="email" required>
+    </div>
+
+    <!-- Password -->
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" name="password" required>
+    </div>
+
+    <!-- Role -->
+    <div class="mb-3">
+        <label for="role" class="form-label">Role</label>
+        <select class="form-select" id="role" name="role" onchange="toggleFields()" required>
+            <option value="seeker">Job Seeker</option>
+            <option value="company">Company</option>
+        </select>
+    </div>
+
+    <!-- MBTI Type (求職者用) -->
+    <div class="mb-3" id="mbti_field">
+        <label for="mbti" class="form-label">MBTI Type (Job Seeker)</label>
+        <select class="form-select" id="mbti" name="mbti" required>
+            <option value="">Select your MBTI</option>
+            <optgroup label="Introverted (I)">
+                <option value="INTJ">INTJ</option>
+                <option value="INTP">INTP</option>
+                <option value="INFJ">INFJ</option>
+                <option value="INFP">INFP</option>
+                <option value="ISTJ">ISTJ</option>
+                <option value="ISFJ">ISFJ</option>
+                <option value="ISTP">ISTP</option>
+                <option value="ISFP">ISFP</option>
+            </optgroup>
+            <optgroup label="Extroverted (E)">
+                <option value="ENTJ">ENTJ</option>
+                <option value="ENTP">ENTP</option>
+                <option value="ENFJ">ENFJ</option>
+                <option value="ENFP">ENFP</option>
+                <option value="ESTJ">ESTJ</option>
+                <option value="ESFJ">ESFJ</option>
+                <option value="ESTP">ESTP</option>
+                <option value="ESFP">ESFP</option>
+            </optgroup>
+        </select>
+    </div>
+
+    <!-- Preferred MBTI (企業用) -->
+    <div class="mb-3" id="preferred_mbti_field" style="display: none;">
+        <label for="preferred_mbti" class="form-label">Preferred MBTI Type (Company)</label>
+        <select class="form-select" id="preferred_mbti" name="preferred_mbti" required>
+            <option value="">Select preferred MBTI</option>
+            <optgroup label="Introverted (I)">
+                <option value="INTJ">INTJ</option>
+                <option value="INTP">INTP</option>
+                <option value="INFJ">INFJ</option>
+                <option value="INFP">INFP</option>
+                <option value="ISTJ">ISTJ</option>
+                <option value="ISFJ">ISFJ</option>
+                <option value="ISTP">ISTP</option>
+                <option value="ISFP">ISFP</option>
+            </optgroup>
+            <optgroup label="Extroverted (E)">
+                <option value="ENTJ">ENTJ</option>
+                <option value="ENTP">ENTP</option>
+                <option value="ENFJ">ENFJ</option>
+                <option value="ENFP">ENFP</option>
+                <option value="ESTJ">ESTJ</option>
+                <option value="ESFJ">ESFJ</option>
+                <option value="ESTP">ESTP</option>
+                <option value="ESFP">ESFP</option>
+            </optgroup>
+        </select>
+    </div>
+
+    <!-- Preferred Answers (企業用: 5つの回答入力) -->
+    <!-- Preferred Answers (企業用: 5つの回答入力) -->
+    <div class="mb-3" id="preferred_answers_field" style="display: none;">
+        <label for="preferred_answers" class="form-label">Preferred Answers for Questions (1-5)</label>
+        <div>
+            <label>1. Do you prefer working in a team?</label>
+            <select class="form-select mb-2" name="answer1" required>
+                <option value="">Select a score</option>
+                <option value="1">1 - Strongly Disagree</option>
+                <option value="2">2 - Disagree</option>
+                <option value="3">3 - Neutral</option>
+                <option value="4">4 - Agree</option>
+                <option value="5">5 - Strongly Agree</option>
+            </select>
+
+            <label>2. Are you comfortable with fast-paced environments?</label>
+            <select class="form-select mb-2" name="answer2" required>
+                <option value="">Select a score</option>
+                <option value="1">1 - Strongly Disagree</option>
+                <option value="2">2 - Disagree</option>
+                <option value="3">3 - Neutral</option>
+                <option value="4">4 - Agree</option>
+                <option value="5">5 - Strongly Agree</option>
+            </select>
+
+            <label>3. Do you value creativity in your work?</label>
+            <select class="form-select mb-2" name="answer3" required>
+                <option value="">Select a score</option>
+                <option value="1">1 - Strongly Disagree</option>
+                <option value="2">2 - Disagree</option>
+                <option value="3">3 - Neutral</option>
+                <option value="4">4 - Agree</option>
+                <option value="5">5 - Strongly Agree</option>
+            </select>
+
+            <label>4. How important is work-life balance for you?</label>
+            <select class="form-select mb-2" name="answer4" required>
+                <option value="">Select a score</option>
+                <option value="1">1 - Strongly Disagree</option>
+                <option value="2">2 - Disagree</option>
+                <option value="3">3 - Neutral</option>
+                <option value="4">4 - Agree</option>
+                <option value="5">5 - Strongly Agree</option>
+            </select>
+
+            <label>5. Do you enjoy problem-solving tasks?</label>
+            <select class="form-select mb-2" name="answer5" required>
+                <option value="">Select a score</option>
+                <option value="1">1 - Strongly Disagree</option>
+                <option value="2">2 - Disagree</option>
+                <option value="3">3 - Neutral</option>
+                <option value="4">4 - Agree</option>
+                <option value="5">5 - Strongly Agree</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Submit -->
+    <button type="submit" class="btn btn-primary">Register</button>
+</form>
+
+<!-- JavaScript -->
+<script>
+    function toggleFields() {
+        const role = document.getElementById("role").value; // 選択されたRole
+        const mbtiField = document.getElementById("mbti_field"); // 求職者用MBTIフィールド
+        const preferredMbtiField = document.getElementById("preferred_mbti_field"); // 企業用Preferred MBTI
+        const preferredAnswersField = document.getElementById("preferred_answers_field"); // 企業用回答フィールド
+
+        if (role === "seeker") {
+            // 求職者用フィールドを表示
+            mbtiField.style.display = "block";
+            mbtiField.querySelector("select").setAttribute("required", "required");
+
+            // 企業用フィールドを非表示
+            preferredMbtiField.style.display = "none";
+            preferredAnswersField.style.display = "none";
+
+            // 非表示フィールドのrequired属性を無効化し、値をリセット
+            if (preferredMbtiField.querySelector("select")) {
+                preferredMbtiField.querySelector("select").removeAttribute("required");
+                preferredMbtiField.querySelector("select").value = ""; // 値をリセット
+            }
+            if (preferredAnswersField.querySelectorAll("select")) {
+                preferredAnswersField.querySelectorAll("select").forEach(select => {
+                    select.removeAttribute("required");
+                    select.value = ""; // 値をリセット
+                });
+            }
+        } else if (role === "company") {
+            // 企業用フィールドを表示
+            mbtiField.style.display = "none";
+            preferredMbtiField.style.display = "block";
+            preferredAnswersField.style.display = "block";
+
+            preferredMbtiField.querySelector("select").setAttribute("required", "required");
+            preferredAnswersField.querySelectorAll("select").forEach(select => {
+                select.setAttribute("required", "required");
+            });
+
+            // 求職者用フィールドのrequired属性を無効化し、値をリセット
+            mbtiField.querySelector("select").removeAttribute("required");
+            mbtiField.querySelector("select").value = ""; // 値をリセット
+        }
+    }
+
+    // ページロード時にtoggleFieldsを初期化
+    document.addEventListener("DOMContentLoaded", function () {
+        toggleFields(); // 初期化
+    });
+</script>
+
+
+{% endblock %}

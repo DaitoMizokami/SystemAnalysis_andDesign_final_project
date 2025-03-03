@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Questionnaire</h2>
+    <form method="POST" action="{{ url_for('questionnaire') }}">
+        {% for question in questions %}
+        <div class="mb-3">
+            <label for="question_{{ question.id }}" class="form-label">Question {{ loop.index }}: {{ question.text }}</label>
+            <select class="form-select" id="question_{{ question.id }}" name="question_{{ question.id }}" required>
+                <option value="">Select a score</option>
+                <option value="1">1 - Strongly Disagree</option>
+                <option value="2">2 - Disagree</option>
+                <option value="3">3 - Neutral</option>
+                <option value="4">4 - Agree</option>
+                <option value="5">5 - Strongly Agree</option>
+            </select>
+        </div>
+        {% endfor %}
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary">Submit Questionnaire</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+

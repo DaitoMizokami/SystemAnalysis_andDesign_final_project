@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Matching Results</h2>
+
+<h3>MBTI Matched Companies</h3>
+{% if matched %}
+    {% for match in matched %}
+<div class="card mb-3">
+    <div class="card-body">
+        <h5 class="card-title">{{ match.company.username }}</h5>
+        <ul class="list-unstyled">
+            <li><strong>Preferred MBTI:</strong> {{ match.company.preferred_mbti }}</li>
+            <li><strong>Email:</strong> <a href="mailto:{{ match.company.email }}">{{ match.company.email }}</a></li>
+            <li><strong>Match Score:</strong> {{ match.percentage_score }}%</li>
+        </ul>
+        <span class="badge bg-success">MBTI Match!</span>
+    </div>
+</div>
+    {% endfor %}
+{% else %}
+<p>No matched companies found.</p>
+{% endif %}
+
+<h3>MBTI Unmatched Companies</h3>
+{% if unmatched %}
+    {% for match in unmatched %}
+<div class="card mb-3">
+    <div class="card-body">
+        <h5 class="card-title">{{ match.company.username }}</h5>
+        <ul class="list-unstyled">
+            <li><strong>Preferred MBTI:</strong> {{ match.company.preferred_mbti }}</li>
+            <li><strong>Email:</strong> <a href="mailto:{{ match.company.email }}">{{ match.company.email }}</a></li>
+            <li><strong>Match Score:</strong> {{ match.percentage_score }}%</li>
+        </ul>
+        <span class="badge bg-secondary">MBTI Not Matched</span>
+    </div>
+</div>
+    {% endfor %}
+{% else %}
+<p>No unmatched companies found.</p>
+{% endif %}
+
+{% endblock %}

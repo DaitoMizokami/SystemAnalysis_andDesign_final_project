@@ -1,0 +1,85 @@
+﻿{% extends "base.html" %}
+
+{% block content %}
+<h2>Edit Profile</h2>
+<form method="POST">
+    <!-- Username -->
+    <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" class="form-control" id="username" name="username" value="{{ user.username }}" required>
+    </div>
+
+    <!-- Email -->
+    <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}" required>
+    </div>
+
+    <!-- Role -->
+    <div class="mb-3">
+        <label for="role" class="form-label">Role</label>
+        <input type="text" class="form-control" id="role" value="{{ user.role }}" disabled>
+    </div>
+
+    <!-- MBTI (求職者用) -->
+    {% if user.role == "seeker" %}
+    <div class="mb-3">
+        <label for="mbti" class="form-label">MBTI Type</label>
+        <select class="form-select" id="mbti" name="mbti" required>
+            <option value="INTJ" {% if user.mbti=="INTJ" %}selected{% endif %}>INTJ</option>
+            <option value="INTP" {% if user.mbti=="INTP" %}selected{% endif %}>INTP</option>
+            <option value="ENTJ" {% if user.mbti=="ENTJ" %}selected{% endif %}>ENTJ</option>
+            <option value="ENTP" {% if user.mbti=="ENTP" %}selected{% endif %}>ENTP</option>
+            <option value="INFJ" {% if user.mbti=="INFJ" %}selected{% endif %}>INFJ</option>
+            <option value="INFP" {% if user.mbti=="INFP" %}selected{% endif %}>INFP</option>
+            <option value="ISTJ" {% if user.mbti=="ISTJ" %}selected{% endif %}>ISTJ</option>
+            <option value="ISFJ" {% if user.mbti=="ISFJ" %}selected{% endif %}>ISFJ</option>
+            <option value="ESTJ" {% if user.mbti=="ESTJ" %}selected{% endif %}>ESTJ</option>
+            <option value="ESFJ" {% if user.mbti=="ESFJ" %}selected{% endif %}>ESFJ</option>
+            <option value="ISTP" {% if user.mbti=="ISTP" %}selected{% endif %}>ISTP</option>
+            <option value="ISFP" {% if user.mbti=="ISFP" %}selected{% endif %}>ISFP</option>
+            <option value="ESTP" {% if user.mbti=="ESTP" %}selected{% endif %}>ESTP</option>
+            <option value="ESFP" {% if user.mbti=="ESFP" %}selected{% endif %}>ESFP</option>
+        </select>
+    </div>
+    {% endif %}
+
+    <!-- Preferred MBTI & Answers (企業用) -->
+    {% if user.role == "company" %}
+    <div class="mb-3">
+        <label for="preferred_mbti" class="form-label">Preferred MBTI Type</label>
+        <select class="form-select" id="preferred_mbti" name="preferred_mbti">
+            <option value="INTJ" {% if user.preferred_mbti=="INTJ" %}selected{% endif %}>INTJ</option>
+            <option value="INTP" {% if user.preferred_mbti=="INTP" %}selected{% endif %}>INTP</option>
+            <option value="ENTJ" {% if user.preferred_mbti=="ENTJ" %}selected{% endif %}>ENTJ</option>
+            <option value="ENTP" {% if user.preferred_mbti=="ENTP" %}selected{% endif %}>ENTP</option>
+            <option value="INFJ" {% if user.preferred_mbti=="INFJ" %}selected{% endif %}>INFJ</option>
+            <option value="INFP" {% if user.preferred_mbti=="INFP" %}selected{% endif %}>INFP</option>
+            <option value="ISTJ" {% if user.preferred_mbti=="ISTJ" %}selected{% endif %}>ISTJ</option>
+            <option value="ISFJ" {% if user.preferred_mbti=="ISFJ" %}selected{% endif %}>ISFJ</option>
+            <option value="ESTJ" {% if user.preferred_mbti=="ESTJ" %}selected{% endif %}>ESTJ</option>
+            <option value="ESFJ" {% if user.preferred_mbti=="ESFJ" %}selected{% endif %}>ESFJ</option>
+            <option value="ISTP" {% if user.preferred_mbti=="ISTP" %}selected{% endif %}>ISTP</option>
+            <option value="ISFP" {% if user.preferred_mbti=="ISFP" %}selected{% endif %}>ISFP</option>
+            <option value="ESTP" {% if user.preferred_mbti=="ESTP" %}selected{% endif %}>ESTP</option>
+            <option value="ESFP" {% if user.preferred_mbti=="ESFP" %}selected{% endif %}>ESFP</option>
+        </select>
+        {% for i in range(1, 6) %}
+        <div class="mb-3">
+            <label for="answer{{ i }}" class="form-label">Question {{ i }}: {{ questions[i-1] }}</label>
+            <select class="form-select" id="answer{{ i }}" name="answer{{ i }}" required>
+                <option value="">Select a score</option>
+                <option value="1" {% if user['answer' ~ i]|int==1 %}selected{% endif %}>1 - Strongly Disagree</option>
+                <option value="2" {% if user['answer' ~ i]|int==2 %}selected{% endif %}>2 - Disagree</option>
+                <option value="3" {% if user['answer' ~ i]|int==3 %}selected{% endif %}>3 - Neutral</option>
+                <option value="4" {% if user['answer' ~ i]|int==4 %}selected{% endif %}>4 - Agree</option>
+                <option value="5" {% if user['answer' ~ i]|int==5 %}selected{% endif %}>5 - Strongly Agree</option>
+            </select>
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        <!-- Submit -->
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
+{% endblock %}
